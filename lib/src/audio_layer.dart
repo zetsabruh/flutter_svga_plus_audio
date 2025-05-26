@@ -1,9 +1,10 @@
 import 'dart:developer';
-
-import 'package:path_provider/path_provider.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'proto/svga.pb.dart';
 import 'dart:io';
+
+import 'package:audioplayers/audioplayers.dart';
+import 'package:path_provider/path_provider.dart';
+
+import 'proto/svga.pb.dart';
 
 class SVGAAudioLayer {
   final AudioPlayer _player = AudioPlayer();
@@ -20,7 +21,8 @@ class SVGAAudioLayer {
       // If need use Bytes, plz upgrade to audioplayers: ^6.0.0
       // BytesSource source = BytesSource(audioData);
       final cacheDir = await getApplicationCacheDirectory();
-      final cacheFile = File('${cacheDir.path}/temp_${_videoItem.hashCode}_${audioItem.audioKey}.mp3');
+      final cacheFile =
+          File('${cacheDir.path}/temp_${_videoItem.hashCode}_${audioItem.audioKey}.mp3');
 
       if (!cacheFile.existsSync()) {
         await cacheFile.writeAsBytes(audioData);
@@ -64,5 +66,10 @@ class SVGAAudioLayer {
   Future<void> dispose() {
     if (isPlaying()) stopAudio();
     return _player.dispose();
+  }
+
+  Future<void> dispose2() async {
+    await _player.stop();
+    await _player.release();
   }
 }

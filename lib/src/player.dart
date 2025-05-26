@@ -145,7 +145,7 @@ class SVGAAnimationController extends AnimationController {
   @override
   void dispose() {
     for (final audio in _audioLayers) {
-      audio.dispose();
+      audio.dispose2();
     }
     // auto dispose _videoItem when set null
     videoItem = null;
